@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -27,5 +26,14 @@ jobs:
       - name: Verify Maven Version
         run: mvn -version
 
+      - name: Run Maven Tests
+        run: mvn test
+
       - name: Build Maven Project
-        run: mvn clean package
+        run: mvn package -DskipTests
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-application
+          path: target/*.jar
